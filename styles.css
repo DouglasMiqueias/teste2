@@ -1119,18 +1119,38 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     overflow: hidden;
     min-height: 100vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 /* Video Background */
-.about-video-bg {
+.about-video-bg,
+.about-video-bg.mobile,
+#videoAboutDesktop,
+#videoAboutMobile {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
     z-index: 0;
     overflow: hidden;
     pointer-events: none;
+}
+
+.about-video-bg {
+    inset: 0;
+}
+
+#videoAboutMobile {
+    display: none;
+}
+
+#videoAboutMobile.mobile {
+    display: block;
 }
 
 .about-video-iframe {
@@ -1199,6 +1219,17 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 20px;
     padding: 2.5rem;
 }
+
+@media (max-width:760px){
+  .glass-card{
+    min-width: 100%;
+  }
+  .about-content{
+    min-width: 27rem;
+    max-height: calc(100vh - 10rem);
+  }
+}
+
 
 .about-label {
     display: inline-block;
@@ -1275,6 +1306,80 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+}
+
+/* Adicione esta media query no final do seu CSS */
+@media (min-width: 769px) {
+    .about {
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        height: 100vh; /* Remove min-height e força altura exata */
+        overflow: hidden; /* Impede scroll na seção */
+        position: relative;
+    }
+
+    .about-video-bg,
+    .about-video-bg.mobile,
+    #videoAboutDesktop,
+    #videoAboutMobile {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw; /* Garante largura total da viewport */
+        height: 100vh; /* Garante que o vídeo ocupe toda a altura */
+        min-width: 100vw;
+        max-width: 100vw;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .about-video-iframe {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 120vw;
+        height: 120vh;
+        min-width: 100vw;
+        min-height: 100vh;
+        object-fit: cover;
+        pointer-events: none;
+    }
+
+    .about-content {
+        max-height: 100vh; /* Remove a subtração que causava corte */
+        overflow: visible; /* Remove scroll interno */
+        padding: 2rem var(--spacing-md);
+        height: auto; /* Permite altura natural */
+        margin-bottom: 1.5rem;
+    }
+
+    .about .container {
+        max-height: 100vh;
+        padding: 0 var(--spacing-md) ;
+        height: auto;
+    }
+
+    /* Ajusta o glass-card para desktop */
+    .glass-card {
+        padding: 3rem;
+        max-width: 100%;
+    }
+
+    /* Garante que stats fiquem bem posicionados */
+    .about-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Pequeno ajuste para garantir que o scroll indicator não interfira */
+@media (min-width: 769px) {
+    .about-scroll-indicator {
+        bottom: 2rem;
+    }
 }
 
 .services{
@@ -1706,6 +1811,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .team-card {
         margin: 0 !important; /* remove margens externas */
+        min-width: 13rem;
     }
 
 }
@@ -2374,8 +2480,22 @@ RESPONSIVE
     filter: grayscale(100%) contrast(1.15);
 }
 
+.logoDushy{
+    width: 18rem;
+    filter: grayscale(100%) brightness(0) contrast(1);
+}
+
+.logoHeloy{
+    width: 10rem;
+    filter: grayscale(100%) brightness(0) contrast(1);
+}
+
 .logoBoticario{
     width: 15rem;
+}
+.logoTropzz{
+    width: 13rem;
+    filter: grayscale(100%) brightness(0) contrast(1);
 }
 
 .logoFlorDoCafe{
@@ -3005,6 +3125,10 @@ RESPONSIVE
     border-top: 1px solid var(--color-border-soft);
     color: var(--color-text-muted);
     font-size: 0.9rem;
+}
+
+.footer-bottom strong{
+    color: var(--color-primary);
 }
 
 /* Animations */
